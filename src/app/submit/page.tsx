@@ -16,6 +16,7 @@ export default function SubmitPage() {
         <SectionHead
           kicker="התור שלי"
           title="שלחו לי מסעדה"
+          level={1}
           lede="רוב הביקורות כאן התחילו מהודעה של מישהו. אני קוראת הכול, גם אם אני לא מספיקה לענות."
         />
 
@@ -67,7 +68,7 @@ export default function SubmitPage() {
 
           <button
             type="submit"
-            className="min-h-[52px] rounded-sm bg-chili px-7 font-data text-[15px] font-black text-white transition-colors duration-200 hover:bg-ink"
+            className="min-h-[52px] rounded-sm bg-chili px-7 font-data text-[15px] font-black text-on-accent transition-colors duration-200 hover:bg-ink"
           >
             שליחה
           </button>

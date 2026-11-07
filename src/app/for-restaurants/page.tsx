@@ -43,6 +43,7 @@ export default function ForRestaurantsPage() {
       <SectionHead
         kicker="למסעדות"
         title="לעבוד ביחד"
+        level={1}
         lede="לפני הכול: שיתוף פעולה קונה חשיפה, לא ציון. זה כתוב כאן כדי שלא תהיה אי־הבנה אחר כך."
       />
 
@@ -131,7 +132,7 @@ export default function ForRestaurantsPage() {
           </div>
           <button
             type="submit"
-            className="min-h-[52px] rounded-sm bg-chili px-7 font-data text-[15px] font-black text-white transition-colors duration-200 hover:bg-ink"
+            className="min-h-[52px] rounded-sm bg-chili px-7 font-data text-[15px] font-black text-on-accent transition-colors duration-200 hover:bg-ink"
           >
             שליחת הפנייה
           </button>

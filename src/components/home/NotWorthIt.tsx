@@ -46,38 +46,38 @@ export default function NotWorthIt({ reviews }: { reviews: Review[] }) {
       <div className="nw-bg absolute inset-0 -z-10 origin-center bg-chili" />
 
       <div className="mx-auto max-w-[1240px] ps-[max(16px,env(safe-area-inset-left,0px))] pe-[max(16px,env(safe-area-inset-right,0px))]">
-        <p className="m-0 font-data text-[12px] font-black tracking-[0.15em] text-white/70">
+        <p className="m-0 font-data text-[12px] font-black tracking-[0.15em] text-on-accent">
           פסק דין
         </p>
         <h2
           id="skip-h"
-          className="mt-2 font-display text-[clamp(40px,8vw,88px)] font-bold leading-[0.9] text-white"
+          className="mt-2 font-display text-[clamp(40px,8vw,88px)] font-bold leading-[0.9] text-on-accent"
         >
           לא שווה
         </h2>
-        <p className="mt-4 max-w-[46ch] text-white/85">
+        <p className="mt-4 max-w-[46ch] text-on-accent">
           אלה המקומות שהלכתי אליהם כדי שלא תצטרכו. אם משהו פה משתנה — אני חוזרת ובודקת שוב.
         </p>
 
-        <ul className="mt-10 grid gap-px overflow-hidden rounded-lg bg-white/25">
+        <ul className="mt-10 grid gap-px overflow-hidden rounded-lg bg-on-accent/25">
           {reviews.map((r) => (
             <li key={r.slug} className="nw-item bg-chili">
               <Link
                 href={`/reviews/${r.slug}`}
-                className="group flex flex-wrap items-center gap-x-5 gap-y-2 px-5 py-5 transition-colors duration-200 hover:bg-[#B01F12]"
+                className="group flex flex-wrap items-center gap-x-5 gap-y-2 px-5 py-5 transition-colors duration-200 hover:bg-chili-hover"
               >
                 <span className="score-on-red shrink-0">
                   <Score value={r.score} size="xl" animate={false} />
                 </span>
                 <span className="min-w-0 flex-1">
-                  <span className="block text-[1.2rem] font-extrabold text-white">
+                  <span className="block text-[1.2rem] font-extrabold text-on-accent">
                     {r.restaurant}
                   </span>
-                  <span className="block font-data text-[13px] text-white/70">
+                  <span className="block font-data text-[13px] text-on-accent">
                     {r.city} · ₪{r.price}
                   </span>
                 </span>
-                <span className="w-full text-[0.97rem] leading-relaxed text-white/90 md:w-auto md:max-w-[46ch]">
+                <span className="w-full text-[0.97rem] leading-relaxed text-on-accent md:w-auto md:max-w-[46ch]">
                   {r.quote}
                 </span>
               </Link>

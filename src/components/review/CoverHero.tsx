@@ -26,12 +26,20 @@ export default function CoverHero({
   review,
   kicker,
   href,
+  titleAs = "h1",
 }: {
   review: Review;
   kicker?: string;
   href?: string;
+  /**
+   * On the home page the cover line IS the page title. On a review page the
+   * restaurant's own name further down is the title, so the cover line
+   * becomes a tagline — one h1 per page, and it names the right thing.
+   */
+  titleAs?: "h1" | "p";
 }) {
   const root = useRef<HTMLDivElement>(null);
+  const Title = titleAs;
 
   useGSAP(
     () => {
@@ -90,7 +98,7 @@ export default function CoverHero({
           </span>
         )}
 
-        <h1 className="m-0 font-display font-bold leading-[0.9] text-white [text-shadow:0_2px_0_rgba(0,0,0,.45),0_0_26px_rgba(0,0,0,.35)]">
+        <Title className="m-0 font-display font-bold leading-[0.9] text-white [text-shadow:0_2px_0_rgba(0,0,0,.45),0_0_26px_rgba(0,0,0,.35)]">
           <span className="sr-only">{review.title}</span>
           <span
             aria-hidden="true"
@@ -103,7 +111,7 @@ export default function CoverHero({
               </span>
             ))}
           </span>
-        </h1>
+        </Title>
 
         {review.subtitle && (
           <p className="cv-sub mx-auto mt-3 max-w-[32ch] text-[clamp(15px,2vw,20px)] font-bold text-white/95 [text-shadow:0_1px_6px_rgba(0,0,0,.6)]">

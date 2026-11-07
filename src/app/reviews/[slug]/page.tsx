@@ -37,7 +37,7 @@ export default async function ReviewPage({ params }: Params) {
   return (
     <>
       <Container className="pt-4">
-        <CoverHero review={review} kicker={formatDate(review.date)} />
+        <CoverHero review={review} kicker={formatDate(review.date)} titleAs="p" />
       </Container>
 
       <Container className="py-12">

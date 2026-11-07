@@ -15,6 +15,7 @@ export default function ReviewsPage() {
       <SectionHead
         kicker="הארכיון"
         title="כל הביקורות"
+        level={1}
         lede="כל מקום שהייתי בו, עם ציון, מחיר ופסק דין. סננו לפי מה שחשוב לכם."
       />
       <div className="mt-8">

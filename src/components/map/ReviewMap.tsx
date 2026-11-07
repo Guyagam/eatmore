@@ -305,7 +305,7 @@ export default function ReviewMap({ reviews }: { reviews: Review[] }) {
                     ].join(" ")}
                   >
                     <span
-                      className="tnum inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full font-data text-[12.5px] font-black text-white"
+                      className="tnum inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full font-data text-[12.5px] font-black text-on-accent"
                       style={{
                         background:
                           review.verdict === "worth" ? "var(--mint)" : "var(--chili)",

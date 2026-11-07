@@ -27,7 +27,7 @@ export default async function GuidePage({ params }: Params) {
 
   return (
     <Container className="py-12">
-      <SectionHead kicker="מדריך" title={guide.title} lede={guide.blurb} />
+      <SectionHead kicker="מדריך" title={guide.title} level={1} lede={guide.blurb} />
 
       <Reveal
         className="mt-10 grid gap-5 [grid-template-columns:repeat(auto-fill,minmax(265px,1fr))]"

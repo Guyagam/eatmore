@@ -19,6 +19,7 @@ export default function AbroadPage() {
       <SectionHead
         kicker="מחוץ לארץ"
         title="מה אכלתי בחוץ"
+        level={1}
         lede="אותם כללים בדיוק, רק שאני לא יכולה לחזור בשבוע הבא לבדוק שוב — אז אני כותבת רק על מה שאני בטוחה בו."
       />
 

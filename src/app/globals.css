@@ -16,6 +16,9 @@
   --color-ink: var(--ink);
   --color-muted: var(--muted);
   --color-line: var(--line);
+  --color-field: var(--field);
+  --color-on-accent: var(--on-accent);
+  --color-chili-hover: var(--chili-hover);
   --color-chili: var(--chili);
   --color-yolk: var(--yolk);
   --color-mint: var(--mint);
@@ -38,9 +41,21 @@
   --surface: #f5f0eb;
   --sunk: #ede6df;
   --ink: #1a1412;
-  --muted: #7c6d66;
+  /* #7C6D66 read 4.38:1 on --surface and 4.01:1 on --sunk — both under AA.
+     This clears 4.5:1 on all three light surfaces. */
+  --muted: #70625c;
   --line: #e6dcd4;
+  /* --line is a decorative divider at 1.35:1 and that is fine for a rule
+     between cards. A form field's edge is not decorative: WCAG 1.4.11 wants
+     3:1 for the boundary of a control, so inputs get their own token. */
+  --field: #8b7a6f;
   --chili: #d32718;
+  /* Text on a filled chili or mint surface. In dark mode both accents are
+     brightened to stay legible AS text, which makes them too light to carry
+     white ON them — #FF5C4A with white reads 3.05:1. So filled accents flip
+     to dark type instead. */
+  --on-accent: #ffffff;
+  --chili-hover: #b01f12;
   --yolk: #ec9a09;
   --mint: #237a56;
 
@@ -63,7 +78,10 @@
     --ink: #f8f3ef;
     --muted: #a4958d;
     --line: #352a25;
+    --field: #7a6a62;
     --chili: #ff5c4a;
+    --on-accent: #16100e;
+    --chili-hover: #ff7a6b;
     --yolk: #ffbb3d;
     --mint: #4ebe8d;
     color-scheme: dark;
@@ -77,7 +95,10 @@
   --ink: #f8f3ef;
   --muted: #a4958d;
   --line: #352a25;
+  --field: #7a6a62;
   --chili: #ff5c4a;
+  --on-accent: #16100e;
+  --chili-hover: #ff7a6b;
   --yolk: #ffbb3d;
   --mint: #4ebe8d;
   color-scheme: dark;
@@ -129,6 +150,15 @@ body {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
+/* Form controls carry their own boundary colour (WCAG 1.4.11, 3:1), rather
+   than the decorative --line used between cards. Set once here so no field
+   can be added later without it. */
+input,
+select,
+textarea {
+  border-color: var(--field);
+}
+
 /* iOS Safari zooms the whole page in when a focused field is under 16px, and
    then leaves the viewport zoomed. The design sets 15px on inputs, so on phone
    widths they are nudged up to 16px — the one place the type scale gives way. */
@@ -144,7 +174,7 @@ body {
    be white and smaller. Overridden here rather than adding a prop nobody else
    would use. */
 .score-on-red > span {
-  color: #fff;
+  color: var(--on-accent);
   font-size: 32px;
 }
 

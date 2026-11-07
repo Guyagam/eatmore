@@ -18,6 +18,7 @@ export default function GuidesPage() {
       <SectionHead
         kicker="אוספים"
         title="מדריכים"
+        level={1}
         lede="כל מדריך הוא דירוג, לא רשימה. יש מקום ראשון, ואני מוכנה להגן עליו."
       />
 

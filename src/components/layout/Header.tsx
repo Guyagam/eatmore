@@ -116,7 +116,7 @@ export default function Header() {
           ))}
           <Link
             href="/submit"
-            className="mt-3 block rounded-sm bg-chili px-4 py-3 text-center font-data text-[15px] font-black text-white"
+            className="mt-3 block rounded-sm bg-chili px-4 py-3 text-center font-data text-[15px] font-black text-on-accent"
           >
             שלחו לי מסעדה
           </Link>

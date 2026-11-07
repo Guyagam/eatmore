@@ -68,7 +68,7 @@ export default function MagneticButton({
 
   const skin =
     variant === "solid"
-      ? "bg-chili text-white border-2 border-chili hover:bg-ink hover:border-ink"
+      ? "bg-chili text-on-accent border-2 border-chili hover:bg-ink hover:border-ink"
       : "bg-transparent text-ink border-2 border-ink hover:bg-ink hover:text-paper";
 
   return (

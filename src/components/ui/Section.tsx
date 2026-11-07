@@ -22,12 +22,16 @@ export function SectionHead({
   title,
   lede,
   id,
+  level = 2,
 }: {
   kicker?: string;
   title: string;
   lede?: string;
   id?: string;
+  /** 1 when this heading is the page's title. Every page needs exactly one. */
+  level?: 1 | 2;
 }) {
+  const Heading = level === 1 ? "h1" : "h2";
   return (
     <div className="max-w-[62ch]">
       {kicker && (
@@ -35,12 +39,12 @@ export function SectionHead({
           {kicker}
         </p>
       )}
-      <h2
+      <Heading
         id={id}
         className="mt-2 font-display text-[clamp(34px,5.6vw,62px)] font-bold leading-[0.95]"
       >
         {title}
-      </h2>
+      </Heading>
       {lede && <p className="mt-3 text-[1.03rem] text-muted">{lede}</p>}
     </div>
   );

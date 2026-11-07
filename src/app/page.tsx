@@ -154,7 +154,7 @@ export default function Home() {
               />
               <button
                 type="submit"
-                className="min-h-[48px] rounded-sm bg-chili px-6 font-data text-[15px] font-black text-white transition-colors duration-200 hover:bg-ink"
+                className="min-h-[48px] rounded-sm bg-chili px-6 font-data text-[15px] font-black text-on-accent transition-colors duration-200 hover:bg-ink"
               >
                 הרשמה
               </button>
