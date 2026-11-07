@@ -36,7 +36,13 @@ jobs:
       # The base path has to match the repo name, or every asset 404s.
       - run: node scripts/build-pages.mjs --base "/${GITHUB_REPOSITORY#*/}"
 
+      # enablement turns Pages on from here, so the repo going public is the
+      # only manual step. On a free plan a private repo still can't serve
+      # Pages, and this step is where that shows up.
       - uses: actions/configure-pages@v5
+        with:
+          enablement: true
+
       - uses: actions/upload-pages-artifact@v3
         with:
           path: out
