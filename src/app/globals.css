@@ -1,26 +1,169 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+/* ───────────────────────────────────────────────
+   eat.mor.e — design tokens
+   Mirrors the approved design language:
+   chili = the verdict, yolk = the number, charcoal = the text.
+   Neutrals are warm-biased so food photography doesn't go grey.
+   ─────────────────────────────────────────────── */
+
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-paper: var(--paper);
+  --color-surface: var(--surface);
+  --color-sunk: var(--sunk);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-chili: var(--chili);
+  --color-yolk: var(--yolk);
+  --color-mint: var(--mint);
+
+  --font-display: var(--font-karantina), "Arial Narrow", system-ui, sans-serif;
+  --font-body: var(--font-assistant), "Segoe UI", system-ui, sans-serif;
+  --font-data: var(--font-heebo), "Segoe UI", system-ui, sans-serif;
+
+  --radius-sm: 4px;
+  --radius-md: 10px;
+  --radius-lg: 18px;
+
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in: cubic-bezier(0.55, 0, 1, 0.45);
+  --ease-pop: cubic-bezier(0.2, 1.35, 0.4, 1);
+}
+
+:root {
+  --paper: #ffffff;
+  --surface: #f5f0eb;
+  --sunk: #ede6df;
+  --ink: #1a1412;
+  --muted: #7c6d66;
+  --line: #e6dcd4;
+  --chili: #d32718;
+  --yolk: #ec9a09;
+  --mint: #237a56;
+
+  /* motion scale — 140 press / 240 state / 420 reveal / 900 story beat */
+  --t-fast: 140ms;
+  --t-base: 240ms;
+  --t-slow: 420ms;
+  --t-story: 900ms;
+  --stagger-item: 40ms;
+  --stagger-band: 70ms;
+
+  color-scheme: light;
 }
 
 @media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  :root:not([data-theme="light"]) {
+    --paper: #141010;
+    --surface: #211a17;
+    --sunk: #1b1512;
+    --ink: #f8f3ef;
+    --muted: #a4958d;
+    --line: #352a25;
+    --chili: #ff5c4a;
+    --yolk: #ffbb3d;
+    --mint: #4ebe8d;
+    color-scheme: dark;
   }
 }
 
+[data-theme="dark"] {
+  --paper: #141010;
+  --surface: #211a17;
+  --sunk: #1b1512;
+  --ink: #f8f3ef;
+  --muted: #a4958d;
+  --line: #352a25;
+  --chili: #ff5c4a;
+  --yolk: #ffbb3d;
+  --mint: #4ebe8d;
+  color-scheme: dark;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body), "Segoe UI", system-ui, sans-serif;
+  font-size: 17px;
+  line-height: 1.68;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+::selection {
+  background: var(--chili);
+  color: #fff;
+}
+
+:focus-visible {
+  outline: 2px solid var(--chili);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* Numbers that sit in columns — prices, scores, dates */
+.tnum {
+  font-variant-numeric: tabular-nums;
+}
+
+/* The one atmospheric texture in the whole site: 3% grain over photography */
+.grain::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.045;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* The xl score renders in ink; inside the red "not worth it" band it has to
+   be white and smaller. Overridden here rather than adding a prop nobody else
+   would use. */
+.score-on-red > span {
+  color: #fff;
+  font-size: 32px;
+}
+
+/* ── Reveal primitive.
+   Content renders visible by default; the Reveal component opts in to the
+   hidden start state only once JS confirms motion is allowed. A reader with
+   JS off, or reduced motion on, never sees an empty page. ── */
+[data-reveal="armed"] {
+  opacity: 0;
+  transform: translateY(34px);
+}
+[data-reveal="in"] {
+  opacity: 1;
+  transform: none;
+  transition:
+    opacity 620ms var(--ease-out),
+    transform 620ms var(--ease-out);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+  [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
 }

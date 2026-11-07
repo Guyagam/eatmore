@@ -1,36 +1,144 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# אוכלים עם מור — eat.mor.e
 
-## Getting Started
-
-First, run the development server:
+אתר ביקורות המסעדות של [@eat.mor.e](https://www.instagram.com/eat.mor.e).
+Next.js 15 (App Router) · React 19 · Tailwind 4 · TypeScript · GSAP · Lenis · עברית RTL.
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm run dev     # http://localhost:3000
+npm run build   # בנייה סטטית מלאה
+npm run lint
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## הרעיון
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+העמוד שלה באינסטגרם הוא **שלט רחוב**: תמונת אוכל בקלוז־אפ, משפט אחד בלבן כבד, מחיר, ו־📍.
+האתר הוא **המדריך שמאחוריו** — אותו קול, רק שאפשר לחפש בו ולסנן אותו.
 
-## Learn More
+שלושה כללים שכל מסך מקיים:
 
-To learn more about Next.js, take a look at the following resources:
+1. **לפסוק, לא לתאר.** כל כרטיס נגמר בהכרעה — `שווה את זה` או `לא שווה`.
+2. **מחיר ומיקום בשורה הראשונה.** זה מה שמחפשים לפני שמחליטים.
+3. **האוכל צועק, הממשק לוחש.** נקודה אדומה אחת בולטת בכל מסך, לא יותר.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## טוקנים
 
-## Deploy on Vercel
+הכול ב־`src/app/globals.css`, גם כמשתני CSS וגם כ־`@theme` של Tailwind.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+| טוקן | ערך | התפקיד |
+|---|---|---|
+| `--chili` | `#D32718` | הדעה. קישורים, פסילות, ה־CTA הראשי |
+| `--yolk` | `#EC9A09` | מספרים, מחירים, תג המיקום |
+| `--ink` | `#1A1412` | טקסט. שחור חמים, לא שחור טהור |
+| `--mint` | `#237A56` | סמנטי בלבד: כשרות, פסק דין חיובי |
+| `--surface` | `#F5F0EB` | משטחים שקטים |
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+נייטרלים מוטים לחום כדי שתמונות אוכל לא ייראו אפורות. מצב כהה מוגדר במלואו,
+לא היפוך — `[data-theme="dark"]` וגם `prefers-color-scheme`.
+
+**גופנים:** Karantina (כותרות כרזה) · Assistant (גוף) · Heebo (מספרים ותגיות).
+נטענים דרך `next/font/google` עם תת־קבוצת `hebrew`.
+
+---
+
+## מערכת התנועה
+
+```
+--t-fast: 140ms    לחיצה
+--t-base: 240ms    מצב, ריחוף
+--t-slow: 420ms    חשיפה
+--e-out: expo.out    כל מה שנכנס
+--e-in:  power2.in   כל מה שיוצא
+--e-pop: back.out    ציונים, חותמות, לוגו
+```
+
+יציאה = 65% מהכניסה. השהיה בין פריטים 40ms בגריד, 70ms בין פסים.
+
+שבעת הרגעים המתוכננים — ואלה היחידים שבהם משהו זז מעצמו:
+
+| # | הרגע | איפה |
+|---|---|---|
+| 1 | פתיח: פאנל אדום, הלוגו מנגן, הפאנל נחצה | `components/layout/Intro.tsx` |
+| 2 | ההירו: כותרת מילה־מילה + Ken Burns + פרלקס | `components/review/CoverHero.tsx` |
+| 3 | חשיפת גריד מדורגת | `components/motion/Reveal.tsx` |
+| 4 | ספירת הציון + חותמת פסק הדין | `components/review/Bits.tsx` |
+| 5 | מסע אופקי נעוץ במדריכים | `components/home/GuidesTrack.tsx` |
+| 6 | פס "לא שווה" נפתח מהמרכז | `components/home/NotWorthIt.tsx` |
+| 7 | הדר שמסתתר ונחשף | `components/layout/Header.tsx` |
+
+**`prefers-reduced-motion` מכבה את הכול** — בלי פתיח, בלי נעיצה, בלי scrub, בלי Lenis.
+כל התוכן מרונדר במצב הסופי שלו; אף רכיב לא מחכה ל־observer כדי להיות גלוי.
+
+---
+
+## RTL — שלוש נקודות שנשברות אם שוכחים אותן
+
+1. **טרנספורם אופקי מתהפך.** המסע האופקי זז לכיוון `+x`, לא `-x`. ראו ההערה ב־`GuidesTrack.tsx`.
+2. **פיצול טקסט לפי מילים, לא לפי אותיות.** פיצול לתווים שובר סופיות (ם ן ץ ף ך) ומקריאי מסך.
+3. **תכונות לוגיות בלבד** — `ps-*`, `pe-*`, `inset-inline-start`. טקסט לטיני (מייל, `EAT.MOR.E`) מקבל `dir="ltr"` מקומי.
+
+---
+
+## תוכן
+
+היום: seed מקומי ב־`src/lib/data/`. **כל המסעדות שם מומצאות** — תוכן ממלא מקום
+שנועד לבדיקת פריסה, ניגודיות ופילטרים. להחליף לפני עלייה לאוויר.
+
+כל שאילתה עוברת דרך `src/lib/content.ts` ושום רכיב לא מייבא את קובצי הדאטה ישירות,
+כך שמעבר ל־CMS (Sanity בתכנון) נוגע במודול אחד.
+
+מודל התוכן המלא ב־`src/lib/types.ts`. כל שדה שם קיים כי היא כבר כותבת אותו על
+הכיסוי של הפוסט: ציון, פסק דין, מחיר לסועד, עיר, כשרות, מטבח, ציטוט, קישור לריל.
+
+---
+
+## המפה
+
+`components/map/ReviewMap.tsx` + `lib/geo.ts`. מופיעה בעמוד הבית, וגם כתצוגה חלופית
+בארכיון (כפתור "מפה" ליד החיפוש) שמציירת את תוצאות הסינון הנוכחיות.
+
+**למה לא MapLibre ולא שכבת אריחים.** שלוש סיבות: אריחים הם צד שלישי שיכול להגביל
+קצב או ליפול, האפור של OSM נלחם בכל צבע בפלטה, ובזום הזה שמות הרחובות לא נושאים
+שום מידע שהיא נותנת. מה שחשוב זה באיזה כיוון, כמה טוב, וכמה זה עולה.
+
+אז הסיכות מוקרנות מהקואורדינטות האמיתיות שלהן, **בקנה מידה אמיתי**, על מישור בצבעי
+המותג עם הים במקום שבו הים נמצא. להחלפה ב-MapLibre בעתיד — שני הקבצים האלה ותו לא.
+
+שתי החלטות ששווה להכיר:
+
+- **אותו קנה מידה בשני הצירים.** מפה שמותחת ציר אחד כדי למלא מלבן יפה משקרת לגבי
+  מרחק, ומרחק הוא כל השאלה שהמפה הזו עונה עליה. לכן ה**קנבס** מותאם לנתונים ולא
+  להפך — מישור החוף צר וגבוה, אז המפה יוצאת צרה וגבוהה (כרגע ‎312×720).
+- **המסגרת מותאמת לביקורות שהיא מקבלת**, לא לקו מתאר קבוע. ברגע שתהיה ביקורת
+  בחיפה או בבאר שבע, המפה תיפתח לבד.
+
+`placeLabels()` פותר התנגשויות שמות: שתי מסעדות במרחק 400 מטר מייצרות סיכות חופפות,
+אז כל שם נבדק מתחת לסיכה, מעליה, ואז לצדדים — המיקום הפנוי הראשון זוכה, ומתיחה של
+קו מוביל מצוירת כשהשם התרחק.
+
+**נגישות:** לכל סיכה יש דיסק שקוף ברדיוס 22 לפחות (יעד מגע), `role="button"`,
+`aria-label` עם השם, הציון, פסק הדין והמחיר, והפעלה ב-Enter/רווח. לצד המפה יש את
+אותם מקומות כרשימה רגילה — זה מה שקורא מסך קורא, וזה מה שעובד בטלפון צר.
+ביקורות חו״ל לא מופיעות במפה בכוונה; שלוש נקודות באירופה ובאסיה היו מועכות את
+כל מישור החוף לכתם.
+
+---
+
+## תמונות
+
+`components/media/FoodPhoto.tsx` מצייר גרדיאנט חם לפי סוג המנה.
+**להחלפה ב־`next/image`** כשהצילומים האמיתיים נכנסים — שכבת הכהות (18%→42%)
+ומחלקת ה־`grain` נשארות בדיוק כמו שהן; הן מה ששומר על הלבן קריא ביחס 4.5:1
+מעל כל תמונה.
+
+---
+
+## מה עוד לא נבנה
+
+- עמודי מתכונים
+- טפסים אמיתיים — `/api/subscribe`, `/api/contact`, `/api/submit` עדיין לא קיימים
+- חיבור CMS
+- מעברי עמוד עם View Transitions
