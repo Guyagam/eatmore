@@ -50,7 +50,11 @@ export default function Header() {
       style={{ top: 0, paddingTop: "env(safe-area-inset-top, 0px)" }}
     >
       <div className="mx-auto flex max-w-[1240px] items-center justify-between gap-4 py-3 ps-[max(16px,env(safe-area-inset-left,0px))] pe-[max(16px,env(safe-area-inset-right,0px))]">
-        <Link href="/" aria-label="אוכלים עם מור — לעמוד הבית" className="shrink-0">
+        <Link
+          href="/"
+          aria-label="אוכלים עם מור — לעמוד הבית"
+          className="flex min-h-[44px] min-w-[44px] shrink-0 items-center"
+        >
           <Logo variant="mark" size={38} />
         </Link>
 

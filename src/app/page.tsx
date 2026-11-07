@@ -42,7 +42,7 @@ export default function Home() {
             <Link
               key={c}
               href={`/reviews?city=${encodeURIComponent(c)}`}
-              className="min-h-[40px] rounded-full border border-line px-4 py-2 font-data text-[14px] font-bold transition-colors duration-[var(--t-base)] hover:border-ink"
+              className="min-h-[44px] rounded-full border border-line px-4 py-2 font-data text-[14px] font-bold transition-colors duration-[var(--t-base)] hover:border-ink"
             >
               {c}
             </Link>

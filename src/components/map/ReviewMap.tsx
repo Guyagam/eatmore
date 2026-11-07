@@ -105,7 +105,7 @@ export default function ReviewMap({ reviews }: { reviews: Review[] }) {
             onClick={() => setMode(m)}
             aria-pressed={mode === m}
             className={[
-              "min-h-[40px] rounded-full border px-4 py-2 font-data text-[14px] font-bold",
+              "min-h-[44px] rounded-full border px-4 py-2 font-data text-[14px] font-bold",
               "transition-[background-color,border-color,color] duration-[var(--t-base)]",
               mode === m ? "border-ink bg-ink text-paper" : "border-line bg-paper text-ink hover:border-ink",
             ].join(" ")}

@@ -31,7 +31,7 @@ function Pill({
       onClick={onClick}
       aria-pressed={active}
       className={[
-        "min-h-[40px] rounded-full border px-4 py-2 font-data text-[14px] font-bold",
+        "min-h-[44px] rounded-full border px-4 py-2 font-data text-[14px] font-bold",
         "transition-[background-color,border-color,color] duration-[var(--t-base)]",
         active
           ? "border-ink bg-ink text-paper"
@@ -78,7 +78,11 @@ export default function ReviewsExplorer({
 
   return (
     <div>
-      <div className="sticky top-[64px] z-30 -mx-[max(16px,env(safe-area-inset-left,0px))] border-y border-line bg-paper/92 px-[max(16px,env(safe-area-inset-left,0px))] py-4 backdrop-blur-xl">
+      {/* Sticky from md up only. On a phone the control block is ~190px tall
+          even collapsed, and pinning a quarter of the screen to filter a list
+          you then have to scroll is a bad trade — scrolling back up is one
+          flick. */}
+      <div className="z-30 -mx-[max(16px,env(safe-area-inset-left,0px))] border-y border-line bg-paper/92 px-[max(16px,env(safe-area-inset-left,0px))] py-4 backdrop-blur-xl md:sticky md:top-[64px]">
         <div className="grid gap-3">
           <div className="flex flex-wrap items-center gap-3">
             <label htmlFor="q" className="sr-only">

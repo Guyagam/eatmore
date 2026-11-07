@@ -129,6 +129,17 @@ body {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
+/* iOS Safari zooms the whole page in when a focused field is under 16px, and
+   then leaves the viewport zoomed. The design sets 15px on inputs, so on phone
+   widths they are nudged up to 16px — the one place the type scale gives way. */
+@media (max-width: 767px) {
+  input,
+  select,
+  textarea {
+    font-size: 16px;
+  }
+}
+
 /* The xl score renders in ink; inside the red "not worth it" band it has to
    be white and smaller. Overridden here rather than adding a prop nobody else
    would use. */

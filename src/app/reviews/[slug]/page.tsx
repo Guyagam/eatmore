@@ -138,8 +138,11 @@ export default async function ReviewPage({ params }: Params) {
               <ReviewCard key={r.slug} review={r} />
             ))}
           </Reveal>
-          <p className="mt-8">
-            <Link href="/reviews" className="font-data font-bold underline underline-offset-4">
+          <p className="mt-6">
+            <Link
+              href="/reviews"
+              className="inline-flex min-h-[44px] items-center font-data font-bold underline underline-offset-4"
+            >
               לכל הביקורות
             </Link>
           </p>

@@ -37,12 +37,14 @@ export default function Footer() {
             <h2 className="mb-4 font-data text-[11.5px] font-black tracking-[0.13em] text-muted">
               {col.title}
             </h2>
-            <ul className="grid gap-2.5">
+            {/* -my-2 keeps the 44px touch targets from inflating the visual
+                rhythm of the column. */}
+            <ul className="-my-2 grid">
               {col.links.map((l) => (
                 <li key={l.href}>
                   <Link
                     href={l.href}
-                    className="text-[0.95rem] transition-colors duration-200 hover:text-chili"
+                    className="inline-flex min-h-[44px] items-center text-[0.95rem] transition-colors duration-200 hover:text-chili"
                   >
                     {l.label}
                   </Link>
@@ -63,7 +65,7 @@ export default function Footer() {
             target="_blank"
             rel="noopener noreferrer"
             dir="ltr"
-            className="font-data text-[12.5px] font-bold tracking-[0.08em] text-muted transition-colors duration-200 hover:text-chili"
+            className="inline-flex min-h-[44px] items-center font-data text-[12.5px] font-bold tracking-[0.08em] text-muted transition-colors duration-200 hover:text-chili"
           >
             @EAT.MOR.E
           </a>
