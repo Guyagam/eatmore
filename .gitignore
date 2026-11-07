@@ -42,3 +42,8 @@ next-env.d.ts
 
 # alternate build output (BUILD_DIR)
 /.next-build/
+
+# local static-export preview
+/.pages-preview/
+/.next-pages/
+/out/

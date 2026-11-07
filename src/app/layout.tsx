@@ -30,6 +30,16 @@ const heebo = Heebo({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://eatmore.example"),
+  /**
+   * The seed content is invented restaurants and invented scores published
+   * under a real person's brand name. On the public preview that stays out
+   * of search results — a fabricated "לא שווה" ranking for a made-up place
+   * should not surface next to her real work. Remove this once the reviews
+   * are her own.
+   */
+  ...(process.env.GITHUB_PAGES === "true"
+    ? { robots: { index: false, follow: false } }
+    : {}),
   title: {
     default: "אוכלים עם מור — ביקורות מסעדות בארץ ובעולם",
     template: "%s · אוכלים עם מור",
