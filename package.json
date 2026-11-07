@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "build:pages": "node scripts/build-pages.mjs",
+    "deploy:pages": "node scripts/build-pages.mjs && npx --yes gh-pages@6.3.0 -d out -b gh-pages -t"
   },
   "dependencies": {
     "@gsap/react": "^2.1.2",
